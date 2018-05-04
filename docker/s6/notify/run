@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cd /var/app
+python manage.py notify
