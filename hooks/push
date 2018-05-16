@@ -1,0 +1,12 @@
+#!/bin/bash
+
+VERSION=$(cat VERSION)
+echo "Tagging and pushing..."
+
+docker tag $DOCKER_REPO:$VERSION $DOCKER_REPO:latest
+docker tag $DOCKER_REPO:arm-$VERSION $DOCKER_REPO:arm
+
+docker push $DOCKER_REPO:latest
+docker push $DOCKER_REPO:$VERSION
+docker push $DOCKER_REPO:arm
+docker push $DOCKER_REPO:arm-$VERSION
