@@ -7,9 +7,9 @@ echo "Building for x84_64..."
 #docker build -t $DOCKER_REPO:$VERSION \
 #			 -f Dockerfile .
 
-docker build -f docker/Dockerfile.armbuilder -t armbuilder .
 echo "Building for arm32v6..."
-#docker run --rm --privileged multiarch/qemu-user-static:register --reset
+docker build -f docker/Dockerfile.armbuilder -t armbuilder .
+docker run --rm --privileged multiarch/qemu-user-static:register --reset
 docker build -t $DOCKER_REPO:arm-$VERSION \
 			 --build-arg BASE='armbuilder' \
 			 -f Dockerfile .
