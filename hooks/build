@@ -8,6 +8,8 @@ echo "Building for x84_64..."
 #			 -f Dockerfile .
 
 echo "Building for arm32v6..."
+curl -LO https://github.com/multiarch/qemu-user-static/releases/download/v2.12.0/qemu-arm-static
+chmod a+x qemu-arm-static
 docker build -f docker/Dockerfile.armbuilder -t armbuilder .
 docker run --rm --privileged multiarch/qemu-user-static:register --reset
 docker build -t $DOCKER_REPO:arm-$VERSION \

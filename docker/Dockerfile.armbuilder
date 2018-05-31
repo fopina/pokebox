@@ -1,3 +1,3 @@
 FROM arm32v6/python:2.7.14-alpine3.6
 
-ADD https://github.com/multiarch/qemu-user-static/releases/download/v2.12.0/qemu-arm-static /usr/bin/qemu-arm-static
+ADD ./qemu-arm-static /usr/bin/qemu-arm-static
