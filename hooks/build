@@ -4,11 +4,12 @@ DOCKER_REPO=${DOCKER_REPO:-fopina/pokebox}
 VERSION=$(cat VERSION)
 echo "Build hook running"
 echo "Building for x84_64..."
-docker build -t $DOCKER_REPO:$VERSION \
-			 -f Dockerfile .
+#docker build -t $DOCKER_REPO:$VERSION \
+#			 -f Dockerfile .
 
 docker build -f docker/bla -t buildertemp .
 echo "Building for arm32v6..."
+docker run --rm --privileged multiarch/qemu-user-static:register --reset
 docker build -t $DOCKER_REPO:arm-$VERSION \
-			 --build-arg BASE='arm32v6/python:2.7.14-alpine3.6' \
+			 --build-arg BASE='buildertemp' \
 			 -f Dockerfile .
