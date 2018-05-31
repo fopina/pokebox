@@ -1,0 +1,3 @@
+FROM arm32v6/python:2.7.14-alpine3.6
+
+COPY ./docker/qemu-arm-static /usr/bin/qemu-arm-static
