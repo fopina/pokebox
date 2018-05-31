@@ -9,7 +9,7 @@ echo "Building for x84_64..."
 
 docker build -f docker/bla -t buildertemp .
 echo "Building for arm32v6..."
-docker run --rm --privileged multiarch/qemu-user-static:register --reset
+#docker run --rm --privileged multiarch/qemu-user-static:register --reset
 docker build -t $DOCKER_REPO:arm-$VERSION \
 			 --build-arg BASE='buildertemp' \
 			 -f Dockerfile .
