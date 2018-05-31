@@ -6,10 +6,12 @@ echo "Build hook running"
 echo "Building for x84_64..."
 docker build -t $DOCKER_REPO:$VERSION \
 			 -f Dockerfile .
+
 echo "Building for arm32v6..."
-# once there is a host to build arm images, same dockerfile can be used with
-# --build-arg BASE='arm32v6/python:2.7.14-alpine3.6'
-sed -e '/^#.*# hub_arm_hack/s/^#//g' Dockerfile > Dockerfile.arm
+curl -LO https://github.com/multiarch/qemu-user-static/releases/download/v2.12.0/qemu-arm-static
+chmod a+x qemu-arm-static
+docker build -f docker/Dockerfile.armbuilder -t armbuilder .
+docker run --rm --privileged multiarch/qemu-user-static:register --reset
 docker build -t $DOCKER_REPO:arm-$VERSION \
-			 --build-arg BASE='fopina/alpine-arm:3.6' \
-			 -f Dockerfile.arm .
+			 --build-arg BASE='armbuilder' \
+			 -f Dockerfile .
